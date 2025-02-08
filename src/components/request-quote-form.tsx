@@ -34,12 +34,18 @@ export const RequestQuoteForm = ({
   onSubmit = () => {},
   hasSubmittedQuote,
 }: RequestQuoteFormProps) => {
-  const { handleSubmit, control } = useForm<FormType>({
+  const {
+    handleSubmit,
+    control,
+    formState: { isValid },
+  } = useForm<FormType>({
     resolver: zodResolver(schema),
+    mode: 'onChange',
   });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-
+  const enabledButtom = isValid || hasSubmittedQuote;
+  console.log('enabledButtom', enabledButtom);
   const handleFormSubmit: SubmitHandler<FormType> = async (data) => {
     console.log('handleFormSubmit', data);
     setLoading(true);
@@ -119,11 +125,11 @@ export const RequestQuoteForm = ({
         )}
         <Button
           loading={loading}
-          // disabled={success || hasSubmittedQuote}
+          disabled={!enabledButtom}
           className={
-            success || hasSubmittedQuote
-              ? 'bg-green-500 dark:bg-green-500'
-              : 'bg-black dark:bg-black'
+            enabledButtom
+              ? 'bg-black dark:bg-black'
+              : 'bg-slate-400 dark:bg-slate-400'
           }
           textClassName="text-white dark:text-white"
           testID="login-button"
