@@ -2,6 +2,16 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
+export type QuoteRequest = {
+  __typename: "QuoteRequest",
+  content: string,
+  createdAt: string,
+  email: string,
+  id: string,
+  name?: string | null,
+  updatedAt: string,
+};
+
 export type Review = {
   __typename: "Review",
   comment: string,
@@ -23,15 +33,15 @@ export type User = {
   zip?: string | null,
 };
 
-export type ModelReviewFilterInput = {
-  and?: Array< ModelReviewFilterInput | null > | null,
-  comment?: ModelStringInput | null,
+export type ModelQuoteRequestFilterInput = {
+  and?: Array< ModelQuoteRequestFilterInput | null > | null,
+  content?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  email?: ModelStringInput | null,
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
-  not?: ModelReviewFilterInput | null,
-  or?: Array< ModelReviewFilterInput | null > | null,
-  rating?: ModelIntInput | null,
+  not?: ModelQuoteRequestFilterInput | null,
+  or?: Array< ModelQuoteRequestFilterInput | null > | null,
   updatedAt?: ModelStringInput | null,
 };
 
@@ -91,6 +101,24 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
+export type ModelQuoteRequestConnection = {
+  __typename: "ModelQuoteRequestConnection",
+  items:  Array<QuoteRequest | null >,
+  nextToken?: string | null,
+};
+
+export type ModelReviewFilterInput = {
+  and?: Array< ModelReviewFilterInput | null > | null,
+  comment?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  not?: ModelReviewFilterInput | null,
+  or?: Array< ModelReviewFilterInput | null > | null,
+  rating?: ModelIntInput | null,
+  updatedAt?: ModelStringInput | null,
+};
+
 export type ModelIntInput = {
   attributeExists?: boolean | null,
   attributeType?: ModelAttributeTypes | null,
@@ -147,6 +175,24 @@ export type SignUpNewsletterReturnType = {
   success: boolean,
 };
 
+export type ModelQuoteRequestConditionInput = {
+  and?: Array< ModelQuoteRequestConditionInput | null > | null,
+  content?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  email?: ModelStringInput | null,
+  name?: ModelStringInput | null,
+  not?: ModelQuoteRequestConditionInput | null,
+  or?: Array< ModelQuoteRequestConditionInput | null > | null,
+  updatedAt?: ModelStringInput | null,
+};
+
+export type CreateQuoteRequestInput = {
+  content: string,
+  email: string,
+  id?: string | null,
+  name?: string | null,
+};
+
 export type ModelReviewConditionInput = {
   and?: Array< ModelReviewConditionInput | null > | null,
   comment?: ModelStringInput | null,
@@ -185,12 +231,23 @@ export type CreateUserInput = {
   zip?: string | null,
 };
 
+export type DeleteQuoteRequestInput = {
+  id: string,
+};
+
 export type DeleteReviewInput = {
   id: string,
 };
 
 export type DeleteUserInput = {
   email: string,
+};
+
+export type UpdateQuoteRequestInput = {
+  content?: string | null,
+  email?: string | null,
+  id: string,
+  name?: string | null,
 };
 
 export type UpdateReviewInput = {
@@ -208,14 +265,14 @@ export type UpdateUserInput = {
   zip?: string | null,
 };
 
-export type ModelSubscriptionReviewFilterInput = {
-  and?: Array< ModelSubscriptionReviewFilterInput | null > | null,
-  comment?: ModelSubscriptionStringInput | null,
+export type ModelSubscriptionQuoteRequestFilterInput = {
+  and?: Array< ModelSubscriptionQuoteRequestFilterInput | null > | null,
+  content?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  email?: ModelSubscriptionStringInput | null,
   id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
-  or?: Array< ModelSubscriptionReviewFilterInput | null > | null,
-  rating?: ModelSubscriptionIntInput | null,
+  or?: Array< ModelSubscriptionQuoteRequestFilterInput | null > | null,
   updatedAt?: ModelSubscriptionStringInput | null,
 };
 
@@ -249,6 +306,17 @@ export type ModelSubscriptionIDInput = {
   notIn?: Array< string | null > | null,
 };
 
+export type ModelSubscriptionReviewFilterInput = {
+  and?: Array< ModelSubscriptionReviewFilterInput | null > | null,
+  comment?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  or?: Array< ModelSubscriptionReviewFilterInput | null > | null,
+  rating?: ModelSubscriptionIntInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+};
+
 export type ModelSubscriptionIntInput = {
   between?: Array< number | null > | null,
   eq?: number | null,
@@ -272,6 +340,22 @@ export type ModelSubscriptionUserFilterInput = {
   source?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
   zip?: ModelSubscriptionStringInput | null,
+};
+
+export type GetQuoteRequestQueryVariables = {
+  id: string,
+};
+
+export type GetQuoteRequestQuery = {
+  getQuoteRequest?:  {
+    __typename: "QuoteRequest",
+    content: string,
+    createdAt: string,
+    email: string,
+    id: string,
+    name?: string | null,
+    updatedAt: string,
+  } | null,
 };
 
 export type GetReviewQueryVariables = {
@@ -304,6 +388,28 @@ export type GetUserQuery = {
     source?: string | null,
     updatedAt: string,
     zip?: string | null,
+  } | null,
+};
+
+export type ListQuoteRequestsQueryVariables = {
+  filter?: ModelQuoteRequestFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListQuoteRequestsQuery = {
+  listQuoteRequests?:  {
+    __typename: "ModelQuoteRequestConnection",
+    items:  Array< {
+      __typename: "QuoteRequest",
+      content: string,
+      createdAt: string,
+      email: string,
+      id: string,
+      name?: string | null,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
   } | null,
 };
 
@@ -383,6 +489,23 @@ export type SignUpNewsletterQuery = {
   } | null,
 };
 
+export type CreateQuoteRequestMutationVariables = {
+  condition?: ModelQuoteRequestConditionInput | null,
+  input: CreateQuoteRequestInput,
+};
+
+export type CreateQuoteRequestMutation = {
+  createQuoteRequest?:  {
+    __typename: "QuoteRequest",
+    content: string,
+    createdAt: string,
+    email: string,
+    id: string,
+    name?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
 export type CreateReviewMutationVariables = {
   condition?: ModelReviewConditionInput | null,
   input: CreateReviewInput,
@@ -415,6 +538,23 @@ export type CreateUserMutation = {
     source?: string | null,
     updatedAt: string,
     zip?: string | null,
+  } | null,
+};
+
+export type DeleteQuoteRequestMutationVariables = {
+  condition?: ModelQuoteRequestConditionInput | null,
+  input: DeleteQuoteRequestInput,
+};
+
+export type DeleteQuoteRequestMutation = {
+  deleteQuoteRequest?:  {
+    __typename: "QuoteRequest",
+    content: string,
+    createdAt: string,
+    email: string,
+    id: string,
+    name?: string | null,
+    updatedAt: string,
   } | null,
 };
 
@@ -453,6 +593,23 @@ export type DeleteUserMutation = {
   } | null,
 };
 
+export type UpdateQuoteRequestMutationVariables = {
+  condition?: ModelQuoteRequestConditionInput | null,
+  input: UpdateQuoteRequestInput,
+};
+
+export type UpdateQuoteRequestMutation = {
+  updateQuoteRequest?:  {
+    __typename: "QuoteRequest",
+    content: string,
+    createdAt: string,
+    email: string,
+    id: string,
+    name?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
 export type UpdateReviewMutationVariables = {
   condition?: ModelReviewConditionInput | null,
   input: UpdateReviewInput,
@@ -485,6 +642,22 @@ export type UpdateUserMutation = {
     source?: string | null,
     updatedAt: string,
     zip?: string | null,
+  } | null,
+};
+
+export type OnCreateQuoteRequestSubscriptionVariables = {
+  filter?: ModelSubscriptionQuoteRequestFilterInput | null,
+};
+
+export type OnCreateQuoteRequestSubscription = {
+  onCreateQuoteRequest?:  {
+    __typename: "QuoteRequest",
+    content: string,
+    createdAt: string,
+    email: string,
+    id: string,
+    name?: string | null,
+    updatedAt: string,
   } | null,
 };
 
@@ -521,6 +694,22 @@ export type OnCreateUserSubscription = {
   } | null,
 };
 
+export type OnDeleteQuoteRequestSubscriptionVariables = {
+  filter?: ModelSubscriptionQuoteRequestFilterInput | null,
+};
+
+export type OnDeleteQuoteRequestSubscription = {
+  onDeleteQuoteRequest?:  {
+    __typename: "QuoteRequest",
+    content: string,
+    createdAt: string,
+    email: string,
+    id: string,
+    name?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
 export type OnDeleteReviewSubscriptionVariables = {
   filter?: ModelSubscriptionReviewFilterInput | null,
 };
@@ -551,6 +740,22 @@ export type OnDeleteUserSubscription = {
     source?: string | null,
     updatedAt: string,
     zip?: string | null,
+  } | null,
+};
+
+export type OnUpdateQuoteRequestSubscriptionVariables = {
+  filter?: ModelSubscriptionQuoteRequestFilterInput | null,
+};
+
+export type OnUpdateQuoteRequestSubscription = {
+  onUpdateQuoteRequest?:  {
+    __typename: "QuoteRequest",
+    content: string,
+    createdAt: string,
+    email: string,
+    id: string,
+    name?: string | null,
+    updatedAt: string,
   } | null,
 };
 

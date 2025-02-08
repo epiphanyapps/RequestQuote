@@ -7,7 +7,7 @@ import { randomBytes } from 'crypto';
 import { env } from '$amplify/env/signUp-newsletter';
 
 import type { Schema } from '../../data/resource';
-// import { createQuoteRequest } from '../signUp-newsletter/graphql/mutations';
+import { createQuoteRequest } from '../signUp-newsletter/graphql/mutations';
 import { html as welcomeHTML } from './welcome.json';
 
 const emailFrom = 'contact@alfajoresny.com';
@@ -58,18 +58,18 @@ export const handler: Schema['requestQuote']['functionHandler'] = async (
   console.log('email', email);
   try {
     // Create user in database
-    const newsletterToken = randomBytes(32).toString('hex');
-    // console.log('email1', email, createQuoteRequest);
-    // await dataClient.graphql({
-    //   query: createQuoteRequest,
-    //   variables: {
-    //     input: {
-    //       name: name,
-    //       email: email,
-    //       content: content,
-    //     },
-    //   },
-    // });
+    // const newsletterToken = randomBytes(32).toString('hex');
+    console.log('email1', email, createQuoteRequest);
+    await dataClient.graphql({
+      query: createQuoteRequest,
+      variables: {
+        input: {
+          name: name,
+          email: email,
+          content: content ? content : '',
+        },
+      },
+    });
     console.log('createQuoteRequest done');
     // const host = callbackURL === 'localhost:8081' ? 'http://' : 'https://';
     // Send welcome email

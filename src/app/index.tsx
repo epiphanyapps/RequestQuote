@@ -65,6 +65,15 @@ const Home = () => {
     errorMessage: null,
     zipPlaceholder: translate('home.zipCode'),
   });
+  const [hasSubmittedQuote, setHasSubmittedQuote] = useState<boolean>(false);
+
+  // Hydrate hasSubmittedQuote from local storage
+  useEffect(() => {
+    const storedValue = localStorage.getItem('hasSubmittedQuote');
+    if (storedValue === 'true') {
+      setHasSubmittedQuote(true);
+    }
+  }, []);
 
   // Replace the direct items and faqData declarations with memoized versions
   const items = useMemo(
@@ -167,9 +176,9 @@ const Home = () => {
   ]);
 
   const handleNewsletterCallback = async (
+    name?: string,
     email: string,
-    content: string,
-    name?: string
+    content: string
   ) => {
     console.log('handleNewsletterCallback', name, email, content);
     try {
@@ -180,7 +189,7 @@ const Home = () => {
       };
       console.log('vars', vars);
       const result = await client.queries.requestQuote(vars);
-      console.log('result');
+      console.log('result', result);
       if (result.errors) {
         console.log(result.errors);
         // setSuccessMessage(translate('home.successAlreadyRegistered'));
@@ -200,11 +209,14 @@ const Home = () => {
         }));
       } else {
         setSuccessMessage(translate('home.success'));
+        setHasSubmittedQuote(true);
+        localStorage.setItem('hasSubmittedQuote', 'true');
         setNewsletterProps((prevProps) => ({
           ...prevProps,
           errorMessage: null,
         }));
       }
+      return result;
     } catch (error) {
       console.log('error', error);
       //@ts-ignore
@@ -244,7 +256,7 @@ const Home = () => {
             width >= 1024 ? 'flex-row' : 'flex-col'
           }`} // Add this line
         >
-          <View className="items-center justify-center p-12">
+          <View className="flex-1 items-center justify-center p-12">
             <Text
               className="text-center text-2xl text-white"
               children="Over a decade of professional experience in all facets of electrical repairs and installations"
@@ -258,12 +270,27 @@ const Home = () => {
               <Text className="text-white" children="dddd"></Text>
             </View>
           </View>
-
-          <RequestQuoteForm
-            onSubmit={(data) => {
-              handleNewsletterCallback(data.name, data.email, data.content);
-            }}
-          />
+          <View className="flex-1 items-center justify-center p-12">
+            <RequestQuoteForm
+              onSubmit={
+                hasSubmittedQuote
+                  ? () => {
+                      localStorage.removeItem('hasSubmittedQuote');
+                      setHasSubmittedQuote(false);
+                      window.location.reload();
+                      return true;
+                    }
+                  : (data) => {
+                      return handleNewsletterCallback(
+                        data.name,
+                        data.email,
+                        data.content
+                      );
+                    }
+              }
+              hasSubmittedQuote={hasSubmittedQuote}
+            />
+          </View>
         </View>
       </ImageBackground>
 

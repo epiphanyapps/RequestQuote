@@ -8,6 +8,21 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
+export const getQuoteRequest = /* GraphQL */ `query GetQuoteRequest($id: ID!) {
+  getQuoteRequest(id: $id) {
+    content
+    createdAt
+    email
+    id
+    name
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetQuoteRequestQueryVariables,
+  APITypes.GetQuoteRequestQuery
+>;
 export const getReview = /* GraphQL */ `query GetReview($id: ID!) {
   getReview(id: $id) {
     comment
@@ -33,6 +48,29 @@ export const getUser = /* GraphQL */ `query GetUser($email: AWSEmail!) {
   }
 }
 ` as GeneratedQuery<APITypes.GetUserQueryVariables, APITypes.GetUserQuery>;
+export const listQuoteRequests = /* GraphQL */ `query ListQuoteRequests(
+  $filter: ModelQuoteRequestFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listQuoteRequests(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      content
+      createdAt
+      email
+      id
+      name
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListQuoteRequestsQueryVariables,
+  APITypes.ListQuoteRequestsQuery
+>;
 export const listReviews = /* GraphQL */ `query ListReviews(
   $filter: ModelReviewFilterInput
   $limit: Int

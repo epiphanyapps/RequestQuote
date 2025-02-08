@@ -8,6 +8,24 @@ type GeneratedMutation<InputType, OutputType> = string & {
   __generatedMutationOutput: OutputType;
 };
 
+export const createQuoteRequest = /* GraphQL */ `mutation CreateQuoteRequest(
+  $condition: ModelQuoteRequestConditionInput
+  $input: CreateQuoteRequestInput!
+) {
+  createQuoteRequest(condition: $condition, input: $input) {
+    content
+    createdAt
+    email
+    id
+    name
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateQuoteRequestMutationVariables,
+  APITypes.CreateQuoteRequestMutation
+>;
 export const createReview = /* GraphQL */ `mutation CreateReview(
   $condition: ModelReviewConditionInput
   $input: CreateReviewInput!
@@ -45,6 +63,24 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
   APITypes.CreateUserMutationVariables,
   APITypes.CreateUserMutation
 >;
+export const deleteQuoteRequest = /* GraphQL */ `mutation DeleteQuoteRequest(
+  $condition: ModelQuoteRequestConditionInput
+  $input: DeleteQuoteRequestInput!
+) {
+  deleteQuoteRequest(condition: $condition, input: $input) {
+    content
+    createdAt
+    email
+    id
+    name
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteQuoteRequestMutationVariables,
+  APITypes.DeleteQuoteRequestMutation
+>;
 export const deleteReview = /* GraphQL */ `mutation DeleteReview(
   $condition: ModelReviewConditionInput
   $input: DeleteReviewInput!
@@ -81,6 +117,24 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
 ` as GeneratedMutation<
   APITypes.DeleteUserMutationVariables,
   APITypes.DeleteUserMutation
+>;
+export const updateQuoteRequest = /* GraphQL */ `mutation UpdateQuoteRequest(
+  $condition: ModelQuoteRequestConditionInput
+  $input: UpdateQuoteRequestInput!
+) {
+  updateQuoteRequest(condition: $condition, input: $input) {
+    content
+    createdAt
+    email
+    id
+    name
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateQuoteRequestMutationVariables,
+  APITypes.UpdateQuoteRequestMutation
 >;
 export const updateReview = /* GraphQL */ `mutation UpdateReview(
   $condition: ModelReviewConditionInput

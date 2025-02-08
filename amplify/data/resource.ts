@@ -38,7 +38,8 @@ const schema = a
     QuoteRequest: a
       .model({
         name: a.string(),
-        rating: a.integer().required(),
+        email: a.string().required(),
+        // rating: a.integer().required(),
         content: a.string().required(),
       })
       .authorization((allow) => [
