@@ -1,5 +1,6 @@
+import { Ionicons } from '@expo/vector-icons';
 import { zodResolver } from '@hookform/resolvers/zod';
-import React from 'react';
+import React, { useState } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
@@ -25,14 +26,37 @@ export type FormType = z.infer<typeof schema>;
 
 export type RequestQuoteFormProps = {
   onSubmit?: SubmitHandler<FormType>;
+  hasSubmittedQuote?: boolean;
 };
 
+// eslint-disable-next-line max-lines-per-function
 export const RequestQuoteForm = ({
   onSubmit = () => {},
+  hasSubmittedQuote,
 }: RequestQuoteFormProps) => {
   const { handleSubmit, control } = useForm<FormType>({
     resolver: zodResolver(schema),
   });
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  const handleFormSubmit: SubmitHandler<FormType> = async (data) => {
+    console.log('handleFormSubmit', data);
+    setLoading(true);
+
+    try {
+      console.log('handleFormSubmit', data);
+      await onSubmit(data);
+      setSuccess(true);
+    } catch (error) {
+      console.log('error', error);
+      setSuccess(false);
+    }
+
+    console.log('handleFormSubmit', data);
+    setLoading(false);
+  };
+  console.log('loading is ', loading);
   return (
     <KeyboardAvoidingView
       className="rounded-lg bg-white shadow-md"
@@ -40,50 +64,82 @@ export const RequestQuoteForm = ({
       keyboardVerticalOffset={10}
     >
       <View className="flex-1 justify-center p-4">
-        <View className="items-center justify-center">
-          <Text
-            testID="form-title"
-            className="pb-6 text-center text-4xl font-bold !text-black"
-          >
-            Request a Quote
-          </Text>
+        {success || hasSubmittedQuote ? (
+          <View className="items-center justify-center">
+            <Text
+              testID="form-title"
+              className="pb-6 text-center text-4xl font-bold !text-black"
+            >
+              Quote Submitted
+            </Text>
 
-          <Text className="mb-6 max-w-xs text-center !text-black text-gray-500">
-            Please fill out the form below to request a quote.
-          </Text>
-        </View>
+            <Ionicons name="checkmark-circle" size={155} color="green" />
+          </View>
+        ) : (
+          <>
+            <View className="items-center justify-center">
+              <Text
+                testID="form-title"
+                className="pb-6 text-center text-4xl font-bold !text-black"
+              >
+                Request a Quote
+              </Text>
 
-        <ControlledInput
-          // className="!text-black"
-          // placeholderClassName="text-white"
-          testID="name"
-          control={control}
-          name="name"
-          label="Name"
-        />
+              <Text className="mb-6 max-w-xs text-center !text-black text-gray-500">
+                Please fill out the form below to request a quote.
+              </Text>
+            </View>
 
-        <ControlledInput
-          testID="email-input"
-          control={control}
-          name="email"
-          label="Email"
-        />
-        <ControlledInput
-          testID="content"
-          control={control}
-          name="content"
-          label="Describe your project"
-          placeholder="Describe your project"
-          numberOfLines={4}
-          className="mt-0 h-40 rounded-xl border-[0.5px] border-neutral-300 bg-neutral-100 px-4 py-3 font-inter text-base  font-medium leading-5 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white"
-          // secureTextEntry={true}
-        />
+            <ControlledInput
+              // className="!text-black"
+              // placeholderClassName="text-white"
+              testID="name"
+              control={control}
+              name="name"
+              label="Name"
+            />
+
+            <ControlledInput
+              testID="email-input"
+              control={control}
+              name="email"
+              label="Email"
+            />
+            <ControlledInput
+              testID="content"
+              control={control}
+              name="content"
+              label="Describe your project"
+              placeholder="Describe your project"
+              numberOfLines={4}
+              className="mt-0 h-40 rounded-xl border-[0.5px] border-neutral-300 bg-neutral-100 px-4 py-3 font-inter text-base  font-medium leading-5 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white"
+              // secureTextEntry={true}
+            />
+          </>
+        )}
         <Button
-          className="bg-black dark:bg-black"
+          loading={loading}
+          // disabled={success || hasSubmittedQuote}
+          className={
+            success || hasSubmittedQuote
+              ? 'bg-green-500 dark:bg-green-500'
+              : 'bg-black dark:bg-black'
+          }
           textClassName="text-white dark:text-white"
           testID="login-button"
-          label="Get a Quote"
-          onPress={handleSubmit(onSubmit)}
+          label={success || hasSubmittedQuote ? undefined : 'get a Quote'}
+          children={
+            success || hasSubmittedQuote ? (
+              <>
+                <Ionicons name="checkmark-circle" color={'white'} size={24} />
+                <Text
+                  className="text-white"
+                  children="Submit another quote???"
+                />
+              </>
+            ) : undefined
+          }
+          onPress={handleSubmit(handleFormSubmit)}
         />
       </View>
     </KeyboardAvoidingView>

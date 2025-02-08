@@ -15,9 +15,9 @@ export const createQuoteRequest = /* GraphQL */ `mutation CreateQuoteRequest(
   createQuoteRequest(condition: $condition, input: $input) {
     content
     createdAt
+    email
     id
     name
-    rating
     updatedAt
     __typename
   }
@@ -70,9 +70,9 @@ export const deleteQuoteRequest = /* GraphQL */ `mutation DeleteQuoteRequest(
   deleteQuoteRequest(condition: $condition, input: $input) {
     content
     createdAt
+    email
     id
     name
-    rating
     updatedAt
     __typename
   }
@@ -125,9 +125,9 @@ export const updateQuoteRequest = /* GraphQL */ `mutation UpdateQuoteRequest(
   updateQuoteRequest(condition: $condition, input: $input) {
     content
     createdAt
+    email
     id
     name
-    rating
     updatedAt
     __typename
   }

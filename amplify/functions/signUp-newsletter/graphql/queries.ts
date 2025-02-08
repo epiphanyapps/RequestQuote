@@ -12,9 +12,9 @@ export const getQuoteRequest = /* GraphQL */ `query GetQuoteRequest($id: ID!) {
   getQuoteRequest(id: $id) {
     content
     createdAt
+    email
     id
     name
-    rating
     updatedAt
     __typename
   }
@@ -57,9 +57,9 @@ export const listQuoteRequests = /* GraphQL */ `query ListQuoteRequests(
     items {
       content
       createdAt
+      email
       id
       name
-      rating
       updatedAt
       __typename
     }

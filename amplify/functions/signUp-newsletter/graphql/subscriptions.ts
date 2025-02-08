@@ -14,9 +14,9 @@ export const onCreateQuoteRequest = /* GraphQL */ `subscription OnCreateQuoteReq
   onCreateQuoteRequest(filter: $filter) {
     content
     createdAt
+    email
     id
     name
-    rating
     updatedAt
     __typename
   }
@@ -62,9 +62,9 @@ export const onDeleteQuoteRequest = /* GraphQL */ `subscription OnDeleteQuoteReq
   onDeleteQuoteRequest(filter: $filter) {
     content
     createdAt
+    email
     id
     name
-    rating
     updatedAt
     __typename
   }
@@ -110,9 +110,9 @@ export const onUpdateQuoteRequest = /* GraphQL */ `subscription OnUpdateQuoteReq
   onUpdateQuoteRequest(filter: $filter) {
     content
     createdAt
+    email
     id
     name
-    rating
     updatedAt
     __typename
   }
