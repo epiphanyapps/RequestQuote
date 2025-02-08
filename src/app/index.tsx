@@ -274,10 +274,10 @@ const Home = () => {
             <RequestQuoteForm
               onSubmit={
                 hasSubmittedQuote
-                  ? (data) => {
-                      console.log('delete');
-                      localStorage.delete('hasSubmittedQuote');
+                  ? () => {
+                      localStorage.removeItem('hasSubmittedQuote');
                       setHasSubmittedQuote(false);
+                      window.location.reload();
                       return true;
                     }
                   : (data) => {
