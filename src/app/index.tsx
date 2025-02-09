@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 import CardComponent from '@/components/card-component';
+import { CarouselComponent } from '@/components/carousel-component';
 import { FAQ } from '@/components/faq';
 import { MenuBar } from '@/components/menu-bar';
 import { RequestQuoteForm } from '@/components/request-quote-form';
@@ -229,13 +230,6 @@ const Home = () => {
 
   const { width } = Dimensions.get('window');
 
-  const headerStyle = {
-    paddingHorizontal: 10,
-    flexDirection: width > 600 ? 'row' : 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-  };
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <ImageBackground
@@ -296,6 +290,13 @@ const Home = () => {
 
       <View className="justify-center p-4 align-middle">
         <Reviews />
+        <CarouselComponent
+          urls={[
+            { url: 'https://picsum.photos/200/301', name: '1' },
+            { url: 'https://picsum.photos/201/302', name: '2' },
+            { url: 'https://picsum.photos/203/303', name: '3' },
+          ]}
+        />
         <CardComponent title={cardProps.title} items={cardProps.items} />
         <FAQ faqItems={faqProps.faqItems} title={faqProps.title} />
         {/* <View style={styles.footer}></View> */}
@@ -306,9 +307,9 @@ const Home = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
-    // flex: 1,
-    backgroundColor: '#000',
+    // flexGrow: 1,
+    flex: 1,
+    backgroundColor: '#0000',
     // padding: 20,
   },
   headerBackground: {
